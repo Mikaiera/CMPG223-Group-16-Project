@@ -4,8 +4,14 @@
 
 Nebula-Narratives is a full-featured e-commerce platform for comic enthusiasts, developed as the CMPG 223 final project for Semester 2, 2024. This Flask-based application enables users to browse, purchase, and manage comics while providing administrators with comprehensive management tools.
 
-## Features
+## Tech Stack
+|**Frontend:**| **Backend:** | **Data Visualisation:** |
+|------------------|------------------------|---------------------------|
+|- HTML5, CSS3| - Python 3 |- Matplotlib|
+|- Bootstrap 5| - Flask ||
+|- JavaScript| - SQLite (via Flask-SQLAlchemy)||
 
+## Features
 ### 👤 User Features
 - User registration, login, and profile management
 - Secure profile editing (name, email, contact details, payment info)
@@ -16,13 +22,9 @@ Nebula-Narratives is a full-featured e-commerce platform for comic enthusiasts, 
 - Sales report generation with visual charts (top 10 comics)
 - Income report generation
 
-![Cart Items](/app-preview/in-cart.png)
-
-![Checkout/Purchase Summary](/app-preview/checkout-summary.png)
-
-![User Library](/app-preview/library.png)
-
-![User WishList](/app-preview/wishlist.png)
+|------------------|------------------------|---------------------------|
+|![User Library](/app-preview/library.png)| |![User WishList](/app-preview/wishlist.png)|
+|![Cart Items](/app-preview/in-cart.png) || ![Checkout/Purchase Summary](/app-preview/checkout-summary.png)|
 
 ### 📚 Comic Features
 - Detailed comic listings (images, descriptions, authors, illustrators)
@@ -53,10 +55,3 @@ Nebula-Narratives is a full-featured e-commerce platform for comic enthusiasts, 
 | Lebogang Masiwana |UI/UX Designer, Frontend|
 
 ![About Us Page ](/app-preview/about)
-
-## Tech Stack
-|**Frontend:**| **Backend:** | **Data Visualisation:** |
-|------------------|------------------------|---------------------------|
-|- HTML5, CSS3| - Python 3 |- Matplotlib|
-|- Bootstrap 5| - Flask ||
-|- JavaScript| - SQLite (via Flask-SQLAlchemy)||
