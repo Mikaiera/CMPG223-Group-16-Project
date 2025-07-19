@@ -1,0 +1,17 @@
+{% extends "secondary_base.html" %}
+{% block styles %}
+<style>
+    .form-container {
+        /* background-color: rgb(161, 176, 190); */
+        max-width: 530px;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="p-5 mt-2 mt-5 mb-5 ms-md-auto me-md-auto form-container">
+    <p class="fs-5">
+        An email has been sent to you. Be sure to also check your spam folder. Go to
+        <a href="{{ url_for('main.home') }}">home page</a>.</p>
+</div>
+{% endblock content %}

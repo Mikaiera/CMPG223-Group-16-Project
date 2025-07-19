@@ -1,0 +1,10 @@
+{
+    "SECRET_KEY": "7f9fe384b90a66ae58ba980945449f35ced0949d",
+    "SQLALCHEMY_DATABASE_URI": "sqlite:///database.db",
+    "MAIL_SERVER": "smtp.gmail.com",
+    "MAIL_PORT": "465",
+    "MAIL_USE_TLS": "False",
+    "MAIL_USE_SSL": "True",
+    "MAIL_USERNAME": "uhonedkteffo11@gmail.com",
+    "MAIL_PASSWORD": "wiua zzgl tvqr vwxo"
+}

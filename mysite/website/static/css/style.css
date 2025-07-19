@@ -1,0 +1,257 @@
+/* This is the global styling file that is on every page. This is where the (default) typography, layout, and colours are */
+
+/* ========== Custom components ========== */
+:root {
+    --bg-colour: #1790b8;
+    --primary-blue: #075878;
+    --secondary-blue: rgb(50, 115, 227);
+    --contrast-colour: rgb(175, 21, 170);
+    --light: rgb(240, 240, 240);
+    --dark: rgb(16, 16, 16);
+    --medium: rgb(250, 60, 234);
+    --primary-text-colour: rgb(255, 255, 255);
+    --dark-text-colour: rgb(0, 0, 0);
+    --ff-1: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    --ff-2: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+
+/* NEBULA logo style */
+.logo {
+    font-size: 24px;
+    font-family: calibri;
+    font-weight: 700;
+    color: var(--primary-text-colour);
+    border-style: solid;
+    border-width: 3px;
+    border-color: var(--primary-text-colour);
+    padding: 2px 10px;
+}
+
+/* Default max width of the site content */
+.max-width {
+    max-width: 1048px;
+    margin: 0 auto;
+}
+
+.section-divider {
+    background-color: #bdbdbd; 
+    width: 95%; 
+    max-width: 1048px !important; 
+    margin: auto;
+}
+
+/* ========== Default style ========== */
+body {
+    margin: 0;
+    padding: 0;
+    font-weight: 300 !important;
+    font-size: 22px;
+    background-color: var(--bg-colour);
+    color: var(--primary-text-colour) !important;
+    /* font-family: var(--ff-2) */
+}
+
+a {
+    color: var(--primary-text-colour);
+}
+
+
+/* =========== Header ============ */
+
+header {
+    background-color: var(--primary-blue);
+}
+
+header nav a {
+    color: white !important;
+}
+
+header nav a:hover {
+    color: rgb(195, 195, 195) !important;
+}
+
+.nav-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    padding: 0;
+    max-width: 1248px;
+    margin: auto;
+}
+
+.logged-out-button {
+    display: inline-block;
+    padding: 21px 12px;
+    font-size: 17px;
+    font-family: var(--ff-1) !important;
+    background-color: var(--secondary-blue);
+}
+
+
+.logged-out-button a {
+    padding: 0;
+    margin: 0;
+    color: var(--primary-text-colour);
+}
+
+.logged-in-button {
+    display: inline-block;
+    padding: 8px 0;
+    font-size: 25px;
+}
+
+.logged-in-button a {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+header .logo {
+    /* font-size: 28px; */
+    align-self: center;
+}
+
+.nav .dropdown-menu {
+    background-color: var(--primary-blue) !important;
+    padding: 0.7rem;
+    font-size: 17px;
+}
+
+.nav .dropdown-menu li :hover {
+    background-color: rgba(222, 222, 222, 0.182) !important;
+    color: white !important;
+}
+
+
+/* Offcanvas */
+#offcanvasResponsive {
+    background-color: var(--primary-blue);
+    color: var(--primary-text-colour);
+}
+
+#offcanvasResponsive .btn-close {
+   color: var(--primary-text-colour);
+}
+
+#offcanvasResponsive ul.list-group {
+    background-color: var(--bg-colour) !important;
+    border: none !important;
+}
+
+#offcanvasResponsive .nav-item:hover {
+    background-color: rgba(174, 174, 174, 0.171) !important;
+}
+
+/* ---------------------------------------------------------------- */
+/* ===== Navbar ===== */
+ul.nav-links {
+    position: sticky;
+    top: -1px;
+    z-index: 5;
+    background-color: var(--dark);
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.nav-links li{
+    display: inline-block;
+    padding: 7px 9px;
+}
+
+ul.nav-links li:hover {
+    background-color: rgb(35, 35, 35);
+    border-bottom: 4px solid var(--contrast-colour);
+    padding-bottom: 3px;
+    cursor: pointer;
+}
+
+ul.nav-links a {
+    color: white;
+    font-size: 15px;
+    font-weight: 200;
+}
+
+ul.nav-links a:hover {
+    color: var(--contrast-colour);
+}
+
+
+/* Flash message styles */
+#flash {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 6;
+    max-width: 600px;
+
+    -moz-animation: fadeOut 1s linear 3s forwards;
+    /* Firefox */
+    -webkit-animation: fadeOut 1s linear 3s forwards;
+    /* Safari and Chrome */
+    -o-animation: fadeOut 1s linear 3s forwards;
+    /* Opera */
+    animation: fadeOut 1s linear 3s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+#flash .msg {
+    height: 64px;
+    display: grid;
+    grid-template-columns: 90% 10%;
+    padding-right: 0;
+}
+
+#flash button {
+    border: none !important;
+}
+
+@keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0; display: none;} 
+ } 
+
+ @-webkit-keyframes fadeOut {
+    0% {opacity: 1;}
+    98% {opacity: 0;}
+    100% {display: none;} 
+ } 
+
+
+
+/* ---------------------------------------------------------------- */
+/* ===== Footer ===== */
+footer {
+    background-color: var(--primary-blue);
+    color: var(--primary-text-colour);
+    border-top: 6px solid var(--medium);
+    font-size: 18px;
+}
+
+footer a {
+    color: var(--primary-text-colour) !important;
+    transition-duration: 700ms;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+footer .social-links li {
+    display: inline-block;
+}
+
+footer .social-links img {
+    width: 48px;
+    height: auto;
+    padding: 7px;
+}
+
+footer .social-links li img:hover {
+    width: 48px;
+    height: auto;
+    padding: 3px;
+}
+

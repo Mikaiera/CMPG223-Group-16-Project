@@ -1,0 +1,69 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="container-md mt-md-3 text-center ms-auto me-auto" style="max-width: 1048px;">
+
+    <form method="GET" action="{{ url_for('admin.all_freelancers') }}" class="d-flex justify-content-center mb-4">
+        <input type="text" name="query" class="form-control me-2" placeholder="Search by name or email" value="{{ request.args.get('query', '') }}" style="max-width: 300px;">
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+    </form>
+
+    <div class="btn-group mb-4">
+        <a href="{{ url_for('admin.all_freelancers', sort_by='first_name', order='asc', query=request.args.get('query', '')) }}" class="btn btn-outline-primary">Sort by Name Ascending</a>
+        <a href="{{ url_for('admin.all_freelancers', sort_by='first_name', order='desc', query=request.args.get('query', '')) }}" class="btn btn-outline-primary">Sort by Name Descending</a>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-center">
+        {% for freelancer in freelancers.items %}
+            <div class="card me-2 ms-2 p-2 bg-light" style="width: 18rem; border: none; min-width: 222px;">
+                <div class="card-body">
+                    <h4>{{ freelancer.first_name }} {{ freelancer.last_name }}</h4>
+                    <p class="card-text">{{ freelancer.email }}</p>
+                    <span class="fs-6">{{ freelancer.phone }}</span>
+                    <br><br>
+                    <div class="d-flex mt-auto">
+                        <a href="{{ url_for('admin.update_freelancer', id=freelancer.id) }}" class="btn btn-primary">Update</a>
+                        <button type="button" class="btn btn-outline-danger ms-auto" data-bs-toggle="modal" data-bs-target="#deleteModal{{ freelancer.id }}">
+                            Delete
+                        </button>
+                        
+                        <div class="modal fade" id="deleteModal{{ freelancer.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirm deletion</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete this freelancer?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <form action="{{ url_for('admin.delete_freelancer', freelancer_id=freelancer.id) }}" method="post">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container ms-auto me-auto">
+    {% for page_num in freelancers.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+        {% if page_num %}
+            {% if freelancers.page == page_num %}
+                <a href="{{ url_for('admin.all_freelancers', page=page_num, query=request.args.get('query', ''), sort_by=request.args.get('sort_by', 'first_name'), order=request.args.get('order', 'asc')) }}" class="btn btn-primary mb-4">{{ page_num }}</a>
+            {% else %}
+                <a href="{{ url_for('admin.all_freelancers', page=page_num, query=request.args.get('query', ''), sort_by=request.args.get('sort_by', 'first_name'), order=request.args.get('order', 'asc')) }}" class="btn btn-outline-primary mb-4">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

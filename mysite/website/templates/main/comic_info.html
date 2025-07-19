@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .icon-link {
+        font-size: 1.5rem;
+        color: var(--primary-text-colour);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    .icon-link:hover {
+        cursor: pointer;
+    }
+
+    .btn-{
+        background-color: #3b3b3b;
+        color: white;
+        border-radius: 0 !important;
+    }
+
+    section img {
+        width: 92%;
+        height: auto;
+        margin: auto;
+        box-shadow: 5px 8px 5px 5px rgba(17, 17, 17, 0.492);
+    }
+
+    @media screen and (max-width: 768px) {
+        section img {
+            width: 65%;
+            margin: auto;
+            text-align: center;
+        }
+    }
+</style>
+
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <div class="max-width p-4 pt-3 pb-3 mt-4 d-flex" style="background-color: var(--dark)">
+        <a href="{{ url_for('main.comics') }}" class="icon-link icon-link-hover ms-3 me-auto">
+            <i class="bi bi-arrow-left-circle-fill"></i>  Back
+        </a>
+        <a href="{{ url_for('users.cart') }}" class="btn btn-warning ms-auto mt-auto mb-auto" style="border-radius: 0px;">Go to cart</a>
+    </div>
+    <div class="container max-width pb-5 pt-5 ms-auto me-auto row row-cols-1 row-cols-md-3" style="background-color: rgba(194, 194, 194, 0.4);">
+        <div class="col-md-4 book-cover ms-auto me-auto">
+            <img src="{{ url_for('static', filename='images/comic_images/' + book.filename) }}" alt="Comic cover">
+        </div>
+        <div class="col-md-8 mt-md-0 mt-4">
+            <div class="">
+                <h2 class="h2 mb-2">{{ book.title }}</h2>
+                <p class="display-6 fs-5">Date released: {{ book.release_date }}</p>
+                <p class="display-4 pt-2 pb-2">R{{ book.price }}0</p>
+                <p class="display-6 fs-5">Authors: {{ book.author }}</p>
+                <p class="display-6 fs-5">Illustrators: {{ book.illustrator }}</p>
+                <p class="display-6 fs-5"><strong>Available Quantity: {{ book.stock_quantity }}</strong></p> <!-- Added stock quantity here -->
+                <div class="d-flex">
+                    {% if not in_lib %}
+                        <!-- Cart add/remove form -->
+                        {% if not in_cart %}
+                            <form action="{{ url_for('action.add_to_cart', title_query=book.title_query) }}" method="post">
+                                <fieldset>
+                                    <button type="submit" class="btn btn-primary mb-2 mt-2 me-auto btn-lightdark">
+                                        Add to cart
+                                    </button>
+                                </fieldset>
+                            </form>
+                        {% else %}
+                            <form action="{{ url_for('action.remove_from_cart', title_query=book.title_query, next=request.url) }}" method="post">
+                                <fieldset>
+                                    <button type="submit" class="btn btn-primary mb-2 mt-2 me-auto btn-lightdark" >
+                                        Remove from cart
+                                    </button>
+                                </fieldset>
+                            </form>
+                        {% endif %}
+
+                        <!-- Wishlist add/remove form -->
+                        {% if not in_wishlist %}
+                            <form action="{{ url_for('action.add_to_wishlist', title_query=book.title_query) }}" method="post">
+                                <fieldset>
+                                    <button type="submit" class="btn btn-primary mb-2 mt-2 me-auto ms-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Add to Wishlist">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                </fieldset>
+                            </form>
+                        {% else %}
+                            <form action="{{ url_for('action.remove_from_wishlist', title_query=book.title_query) }}" method="post">
+                                <fieldset>
+                                    <button type="submit" class="btn btn-primary mb-2 mt-2 me-auto ms-3" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Remove from Wishlist">
+                                        <i class="bi bi-heart-fill" style="color: red"></i>
+                                    </button>
+                                </fieldset>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <!-- View library -->
+                        <button type="submit" class="btn btn-primary mb-2 mt-2 me-auto" >
+                            <a href="{{ url_for('users.library') }}">In library</a>
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-4" style="background-color: rgba(95, 9, 9, 0.2)">
+        <div class="max-width">
+            <h3 class="h3 mb-4">Description:</h3>
+            <span class="display-5 fs-5 fw-light">{{ book.description }}</span>
+        </div>
+    </div>
+</section>
+{% endblock %}

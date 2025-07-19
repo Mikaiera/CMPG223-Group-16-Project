@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .card {
+        max-width: 400px;
+        margin: 1rem auto;
+        margin-right: 20px;
+    }
+    
+
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section class="p-4">
+
+    <!-- Display on screens medium and higher -->
+    <div class="max-width d-md-block d-none">
+        <h2 class="h2">News</h2>
+        <hr style="height: 3px;">
+        <div class="row">
+            <div class="col-5">
+                <div class="mt-md-3 ms-auto me-auto overflow-y-scroll panel" style="max-height: 600px;">
+                    <!-- News post card display here -->
+                    {% for post in news_post.items %}
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title h5" id="title-{{ post.id }}">Title: {{ post.title }}</h5>
+                            <h6 class="card-text text-muted" id="date-{{ post.id }}">Date posted: {{ post.date_posted }}</h6>
+                            <hr>
+                            <p class="card-text d-none" id="content-{{ post.id }}">{{ post.post }}</p>
+                            <p class="d-inline-flex">
+                                <a class="btn btn-primary" href="#top"
+                                onclick="myFunc(document.querySelector('#title-{{ post.id }}').innerHTML, document.querySelector('#date-{{ post.id }}').innerHTML, document.querySelector('#content-{{ post.id }}').innerHTML)">
+                                    Read more
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <!-- Pagination -->
+                <div class="container ms-auto me-auto" style="display: flex; justify-content: center;">
+                    {% for page_num in news_post.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+                        {% if page_num %}
+                            {% if news_post.page == page_num %}
+                                <a href="{{ url_for('main.news', page=page_num) }}" class="btn btn-primary mb-4 ms-2 me-2">{{ page_num }}</a>
+                            {% else %}
+                                <a href="{{ url_for('main.news', page=page_num) }}" class="btn btn-outline-primary mb-4 ms-2 me-2">{{ page_num }}</a>
+                            {% endif %}
+                        {% else %}
+                            ...
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-7">
+                <!-- The post must display here in full -->
+                <div class="ms-5" id="more-info">
+                    <h2 class="h2" id="more-info-title"></h2>
+                    <p class="fs-5" id="more-info-date"></p>
+                    <p class="mt-2" id="more-info-post"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Display on screens smaller than medium -->
+    <div class="small-sceen d-md-none">
+        <div class="accordion" id="accordionExample">
+            {% for post in news_post.items %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne-{{ post.id }}" aria-expanded="true" aria-controls="collapseOne-{{ post.id }}">
+                        {{ post.title }}
+                    </button>
+                    </h2>
+                    <div id="collapseOne-{{ post.id }}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <h4 class="h4 card-title">Title: {{ post.title }}</h4>
+                        <span class="fs-5 mb-2">Date posted: {{ post.date_posted }}</span>
+                        <br>
+                        <hr>
+                        {{  post.post }}
+                    </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        <div class="container mt-3" style="display: flex; justify-content: center;">
+            {% for page_num in news_post.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+                {% if page_num %}
+                    {% if news_post.page == page_num %}
+                        <a href="{{ url_for('main.news', page=page_num) }}" class="btn btn-primary mb-4 ms-2 me-2">{{ page_num }}</a>
+                    {% else %}
+                        <a href="{{ url_for('main.news', page=page_num) }}" class="btn btn-outline-primary mb-4 ms-2 me-2">{{ page_num }}</a>
+                    {% endif %}
+                {% else %}
+                    ...
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+    // Get the values to be displayed
+    function myFunc(t='Title', d="05-05-2023", p="Content"){
+        document.querySelector('#more-info-title').innerHTML = t
+        document.querySelector('#more-info-date').innerHTML = d
+        document.querySelector('#more-info-post').innerHTML = p
+    }
+</script>
+
+{% endblock %}

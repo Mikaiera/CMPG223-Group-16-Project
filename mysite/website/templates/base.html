@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block styles %}{% endblock %}
+    <title>NebulaNarratives | {{ title }}</title>
+</head>
+<body class="fw-normal">
+    <!-- Header -->
+    <header id="top">
+        <nav class="nav-container">
+            <!-- Navbar for screens wider than medium -->
+            <ul class="nav d-none d-md-flex">
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item dropdown logged-in-button">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('users.account') }}"><i class="bi bi-gear"></i>   Account settings </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('users.library') }}"><i class="bi bi-book-fill"></i>  Library</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('users.report') }}"><i class="bi bi-clipboard2-data"></i>  Report</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('users.report_income') }}"><i class="bi bi-clipboard2-data"></i>  Report Income</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('users.logout') }}">Logout</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item logged-in-button">
+                        <a class="nav-link" href="{{ url_for('users.wishlist') }}"><i class="bi bi-heart-fill"></i></a>
+                    </li>
+                    <li class="nav-item logged-in-button">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('users.cart') }}"><i class="bi bi-cart4"></i></a>
+                    </li>
+                {% else %}
+                    <li class="nav-item logged-out-button">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('users.login') }}">Login</a>
+                    </li>
+                    <li class="nav-item logged-out-button">
+                        <a class="nav-link" href="{{ url_for('users.signup') }}">Sign up</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <div class="p-3 p-md-0">
+                <span class="logo">NebulaNarratives</span>
+            </div>
+            
+            <!-- Search bar when screen is wider than 768px -->
+            <div class="">
+                <form action="{{url_for('main.search')}}" class="d-flex me-3 d-none d-md-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                    <button type="button" class="btn btn-secondary" type="submit"><i class="bi bi-search"></i></button>
+                </form>
+            </div>
+            
+            <!-- Offcanvas for small screens -->
+            <button class="btn btn-secondary d-md-none ms-auto me-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
+                <i class="bi bi-border-width"></i>
+            </button>
+            <div class="offcanvas-md d-md-none offcanvas-end ms-auto" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+                <div class="offcanvas-header">
+                    <h3 class="offcanvas-title" id="offcanvasResponsiveLabel">Menu</h3>
+                    <button type="button" class="btn-close btn-light" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="{{ url_for('main.home') }}">Home</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.comics') }}">Comics</a>
+                        </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+                        </li>
+                        <hr class="">
+                        {% if current_user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('users.account') }}">
+                                <i class="bi bi-gear"></i>   Account settings 
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('users.wishlist') }}">
+                                <i class="bi bi-heart-fill"></i>  Wishlist
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="{{ url_for('users.cart') }}">
+                                <i class="bi bi-cart4"></i>  Cart
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('users.library') }}">
+                                <i class="bi bi-book-fill"></i>  Library
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('users.report') }}">
+                                <i class="bi bi-book-fill"></i>  Report Product
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('users.report_income') }}">
+                                <i class="bi bi-book-fill"></i>  Report Income
+                                </a>
+                            </li>
+                            <hr class="section-divider">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('users.logout') }}">
+                                Logout
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{ url_for('users.login') }}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('users.signup') }}">Sign up</a>
+                            </li>
+                        {% endif %}
+
+                        <!-- Search bar for the offcanvas -->
+                        <form action="{{url_for('main.search')}}" class="d-flex mt-5" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+                            <button class="btn btn-secondary" type="submit"><i class="bi bi-search"></i></button>
+                        </form>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <!-- The links navbar -->
+    <ul class="nav nav-links justify-content-center d-none d-md-flex">
+        <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{{ url_for('main.home') }}">Home</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('main.comics') }}">Comics</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+        </li>
+    </ul>
+
+    <!-- Main -->
+    <main>
+        <!-- Flash messages display here -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="container-fluid" id="flash" >
+                {% for category, message in messages %}
+                <div class=" msg alert alert-{{ category }}">
+                    {{ message }}
+                    <button type="button" class="close btn ms-auto"><i><i class="bi bi-x-lg ms-auto"></i></i></button>
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Main content -->
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <nav>
+            <div class="container mt-2 mt-md-0 ms-auto me-auto pb-4 pt-4 row row-cols-1 row-cols-md-4 text-center" style="max-width: 1048px;">
+                <div class="col" style="min-height: 100px; margin: auto; align-self: center;">
+                   <span class="logo mt-auto mb-auto">NebulaNarratives</span>
+                </div>
+                <div class="col mt-md-0 mt-3 mb-3">
+                    <h4 class="h4">About us</h4>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.about') }}#who-are-we">Who are we</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.about') }}#team">The team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('main.about') }}">Where we are</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col mt-md-0 mt-3">
+                    <h4 class="h4">Contact us</h4>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Email us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Call us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Send a complaint</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col mt-md-0 mt-3">
+                    <h4 class="h4">Socials</h4>
+                    <ul class="social-links">
+                        <li class="">
+                            <a href="#"><img src="static/images/icons/instagram_icon.png" alt="instagram link"></a>
+                        </li>
+                        <li class="">
+                            <a href="#"><img src="static/images/icons/twitter_icon.png" alt="twitter link"></a>
+                        </li>
+                        <li class="">
+                            <a href="#"><img src="static/images/icons/youtube_icon.png" alt="youtube link"></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </footer>
+    <script>
+        document.querySelector('.close').addEventListener('click', (e) => {
+            document.querySelector('#flash').style.display = 'none'
+        })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+</body>
+</html>

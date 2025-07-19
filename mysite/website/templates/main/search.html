@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .card {
+        background-color: rgb(120, 120, 120, 0) !important;
+        color: var(--primary-text-colour);
+        border-left: 5px;
+        border-right: 5px;
+        border-radius: 0;
+    }
+
+    .card img {
+        align-self: start;
+    }
+
+    .img-div {
+        padding: 0;
+    }
+
+    .card-body {
+        padding: 0 1rem;
+        display: grid;
+        align-self: center;
+    }
+
+    @media screen and (max-width: 576px) {
+        .cover {
+            padding-top: 0.5rem;
+        }
+        .cancel-button {
+            display: grid;
+            align-self: flex-end;
+            padding: 0 1rem;
+            padding-bottom: 0.5rem;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <div class="container-md mt-4 mb-4" style="max-width: 1048px;">
+        <hr style="height: 4px;">
+        <div class="ps-2" style="min-height: 360px;">
+            <p class="h1 mb-sm-5"> Results for "{{ search_query }}": </p>
+           
+            {% if length %}
+                {% for comic in all_comics %}
+                    {% if search_query.lower() in comic.title.lower() or search_query.lower() in comic.category.lower() or search_query.lower() in comic.author.lower() %}
+                        <div class="card pt-4 pb-4" style="max-width: 540px; min-height: 180px;">
+                            <a href="{{ url_for('main.comic_info', title_query=comic.title_query) }}" style="text-decoration: none;">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img class="img-fluid" src="{{ url_for('static', filename='images/comic_images/'+comic.filename) }}" alt="Comic Book Cover">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body ms-2 mb-auto mt-auto">
+                                            <p class=" m-2 fs-4 card-title">{{ comic.title }}</p>
+                                            <p class=" m-2 fs-4 fw-light">{{ comic.category}}</p>
+                                            <p class=" m-2 fs-4 fw-light ">{{ comic.author }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p class="h3">No Results.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

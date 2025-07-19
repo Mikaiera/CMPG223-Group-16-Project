@@ -1,0 +1,132 @@
+{% extends "supplier/base.html" %}
+
+{% block styles %}
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">-->
+{% endblock styles %}
+
+{% block content %}
+    <div class="p-5 mt-2 mt-5 mb-5 ms-md-auto me-md-auto" style="max-width: 520px;">
+        <h2 class="h2 mb-md-4">Add a book</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group mt-2 mb-3">
+                {{ form.cover_image.label(class="form-label") }}
+                {{ form.cover_image(class="form-control-file") }}
+                {% if form.cover_image.errors %}
+                    {% for error in form.cover_image.errors %}
+                        <span class="text-danger">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div class="mt-2 mb-3">
+                {{ form.category.label(class="form-label") }}
+                {% if form.category.errors %}
+                    {{ form.category(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.category.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.category(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group mt-2 mb-3">
+                {{ form.title.label(class="form-label") }}
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.title(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group mt-2 mb-3">
+                {{ form.author.label(class="form-label") }}
+                {% if form.author.errors %}
+                    {{ form.author(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.author.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.author(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group mt-2 mb-3">
+                {{ form.illustrator.label(class="form-label") }}
+                {% if form.illustrator.errors %}
+                    {{ form.illustrator(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.illustrator.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.illustrator(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group mt-2 mb-3">
+                {{ form.price.label(class="form-label") }}
+                {% if form.price.errors %}
+                    {{ form.price(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.price.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.price(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group mt-2 mb-3">
+                {{ form.date.label(class="form-label") }}
+                {% if form.date.errors %}
+                    {{ form.date(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.date.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.date(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group mt-2 mb-3">
+                {{ form.description.label(class="form-label") }}
+                {% if form.description.errors %}
+                    {{ form.description(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.description.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.description(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group mt-2 mb-3">
+                {{ form.stock_quantity.label(class="form-label") }}
+                {% if form.stock_quantity.errors %}
+                    {{ form.stock_quantity(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.stock_quantity.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.stock_quantity(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="mt-2 mb-3">
+                {{ form.top_pick(class="form-check-input me-1") }}
+                {{ form.top_pick.label(class="form-label") }}
+            </div>
+            {{ form.submit(class="btn btn-primary mb-2") }}
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "admin/base.html" %}
+{% block styles %}
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> -->
+{% endblock styles %}
+
+{% block content %}
+<div class="container-md mt-md-3 text-center ms-auto me-auto d-flex" style="max-width: 1048px;">
+    {% for freelancer in freelancer.items %}
+        <div class="card me-2 ms-2 comic-card p-2 bg-light" style="width: 18rem; border: none; min-width: 222px;">
+            <img src="{{ url_for('static', filename='images/comic_images/'+freelancer.filename) }}" class="card-img-top" alt="Comic Book Cover">
+            <div class="card-body">
+                <h5 class="card-title">{{ freelancer.title }}</h5>
+                <span class="fs-6">{{ freelancer.release_date }}</span>
+                <br><br>
+                <div class="d-flex mt-auto">
+                    <a href="{{ url_for('admin.update_freelancer', name_query=freelancer.name_query) }}" class="btn btn-primary">Update</a>
+                    <!-- Modal button -->
+                    <button type="button" class="btn btn-outline-danger ms-auto" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Delete
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirm deletion</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this freelancer?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form action="{{ url_for('admin.delete_freelancer', name_query=comic.name_query) }}" method="post">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+<div class="container ms-auto me-auto">
+    {% for page_num in comics.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+        {% if page_num %}
+            {% if comics.page == page_num %}
+                <a href="{{ url_for('admin.all_freelancers', page=page_num) }}" class="btn btn-primary mb-4">{{ page_num }}</a>
+            {% else %}
+                <a href="{{ url_for('admin.all_freelancers', page=page_num) }}" class="btn btn-outline-primary mb-4">{{ page_num }}</a>
+            {% endif %}
+        {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

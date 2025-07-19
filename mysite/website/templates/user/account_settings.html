@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .card {
+        background-color: rgb(77, 77, 86);
+        color: #eee;
+        width: 15rem; 
+        min-width: 220px;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section class="p-3">
+    <div class="container-md mt-md-3 mb-md-3" style="max-width: 1048px;">
+        <h2 class="h2 mt-3 mb-3">Account Settings</h2>
+        <hr style="height: 4px;">
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col-md-8">
+                <h3 class="h3">Info</h3>
+                <p class="row">
+                    <span class="col-3 col-md-5">Email:</span>
+                    <span class="col-9 col-md-7">{{ current_user.email }}</span>
+                </p>
+                <p class="row">
+                    <span class="col-3 col-md-5">Country:</span>
+                    <span class="col-9 col-md-7">{{ current_user.country }}</span>
+                </p>
+                <p class="row">
+                    <span class="col-3 col-md-5">Age:</span>
+                    <span class="col-9 col-md-7">{{ current_user.age }}</span>
+                </p>
+                <p class="row">
+                    <span class="col-3 col-md-5">Books in library:</span>
+                    <span class="col-9 col-md-7">{{ amount }}</span>
+                </p>
+                <p class="row">
+                    <span class="col-3 col-md-5">Date joined:</span>
+                    <span class="col-9 col-md-7">{{ current_user.date_joined }}</span>
+                </p>
+            </div>
+            <div class="col-md-4 mt-3">
+                <!-- <h3 class="h3">Update info</h3> -->
+                <a href="{{ url_for('users.update_email') }}" class="btn btn-primary">Update email</a>
+                <br><br>
+                <a href="#" class="btn btn-primary">Change country</a>
+                <br><br>
+                <a href="{{ url_for('users.update_password') }}" class="btn btn-primary">Update password</a>
+                <br><br>
+            </div>
+        </div>
+
+        <div class="col mt-5">
+            <h3 class="h3">Cards</h3>
+            <div class="row row-cols-1 row-cols-md-3">
+                {% for card in cards %}
+                    <div class="card mb-3 me-3 p-1">
+                        <img src="{{ url_for('static', filename='images/card_images/' + card.card_brand +'_thumb.png' ) }}" class="img-fluid img-card-top" alt="Comic Book Cover">
+                        <div class="card-body pt-3">
+                            <p class="fs-6 m-0 pb-3">Card ending in **{{ card.card_number[-1: -5: -1] }}</p>
+                            <hr style="width: 98%; color: #eee; height: 4px; margin: 2px;">
+                            <!-- Modal button -->
+                            <button type="button" class="btn btn-danger mt-1 mb-0 ms-auto" data-bs-toggle="modal" data-bs-target="#removeCardModal">
+                                Remove Payment method
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="removeCardModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Remove payment method</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to remove this payment method?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <form action="{{ url_for('action.delete_payment_method', card_number=card.card_number, next=request.url) }}" method="POST">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% if number <= 2 %}
+                <a href="{{ url_for('others.add_card_details') }}" class="mt-auto mb-auto ms-5 btn btn-primary" style="max-width: 130px">Add payment method</a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

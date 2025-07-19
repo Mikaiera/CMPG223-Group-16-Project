@@ -1,0 +1,61 @@
+{% extends "secondary_base.html" %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
+{% endblock styles %}
+
+{% block content %}
+<div class="row row-cols-md-2 row-cols-1 max-width">
+    <div class="col side-text mt-md-0 mt-5">
+        <div class="mt-4">
+            <span class="d-logo">NEBULA NARRATIVES</span>
+            <p class="fs-1 fw-normal mt-3">N is for Nebula</p>
+            <p class="back" onclick="history.back()"><i class="bi bi-arrow-left"></i>Back</p>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-container p-md-5 p-sm-4 p-3">
+            <h2 class="h2 mb-md-4">Login</h2>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <fieldset>
+                    <div class="form-group mt-2 mb-3">
+                        {{ form.email.label(class="form-label") }}
+                        {% if form.email.errors %}
+                            {{ form.email(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.email(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="form-group mt-2 mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {% if form.password.errors %}
+                            {{ form.password(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.password(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="mt-2 mb-3">
+                        {{ form.remember(class="form-check-input me-1") }}
+                        {{ form.remember.label(class="form-label") }}
+                    </div>
+                    {{ form.submit(class="btn btn-primary mb-2") }}
+                </fieldset>
+                <span class="form-text other-text"><a href="{{ url_for('others.request_reset') }}"><small>Forgot password?</small></a></span>
+            </form>
+            <br>
+            <span class="fs-6 other-text">Don't have an account? <a href="{{ url_for('users.signup') }}">Sign up</a>.</span>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <!-- <div class="container-fluid hero mb-4 ps-0 pe-0" style="border-top: 5px solid #333; border-bottom: 5px solid #333;" > -->
+    <div class="container-fluid hero ps-0 pe-0 text-center text-md-start" data-bs-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="max-width">
+                        <div class="carousel-caption mb-4 text-start carousel-slide-1">
+                            <h1 class="h2 mb-4">New Year, New Comic!</h1>
+                            <p>Read the latest comic which is set in the Kadoko Universe. Kadoko is faced with another tough villian, Odashi. Find out now who this villian is.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="max-width">
+                        <div class="carousel-caption mb-4">
+                            <h5 class="h2">MEio Adventures</h5>
+                            <p>MEio—the girl with eyes like fractured mirrors—unravels forgotten secrets. Her footsteps echo through haunted streets, and the darkness clings to her like a curse. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="max-width">
+                        <div class="carousel-caption mb-4 text-end">
+                            <h5 class="h2">Rekon: The Ronin</h5>
+                            <p>Watch how good of a warrior of the person who trained Genesi was.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<section class="pt-5">
+    <div class="container-md max-width">
+        <code>PLEASE NOTE: This is a **FICTIONAL STORE**</code>
+        <h4 class="h4 mb-4">Latest Comics</h4>
+        <div class="comic-shelf">
+			{% for comic in latest %}
+				<div class="card">
+					<a href="{{ url_for('main.comic_info', title_query=comic.title_query) }}">
+						<img src="{{ url_for('static', filename='images/comic_images/'+comic.filename) }}" class="card-img-top" alt="Comic Book Cover">
+					</a>
+					<div class="card-body text-center">
+						<h5 class="card-title h6 mt-1 mb-1">{{ comic.title }}</h5>
+					</div>
+				</div>
+			{% endfor %}
+			<div class="card me-2 ms-2 mt-auto mb-auto comic-card p-2">
+				<div class="card-body text-center">
+					<a href="{{ url_for('main.top_picks') }}">
+						<i class="bi bi-plus-circle" style="font-size: 2rem"></i><br>
+						<p>More</p>
+					</a>
+				</div>
+			</div>
+		</div>
+    </div>
+</section>
+
+<section class="section-3">
+    <div class="container-md max-width">
+        <h4 class="h4 mb-4">Recommended For You</h4>
+        <div class="comic-shelf">
+			{% for comic in top_picks %}
+				<div class="card">
+					<a href="{{ url_for('main.comic_info', title_query=comic.title_query) }}">
+						<img src="{{ url_for('static', filename='images/comic_images/'+comic.filename) }}" class="card-img-top" alt="Comic Book Cover">
+					</a>
+					<div class="card-body text-center">
+						<h5 class="card-title h6 mt-1 mb-1">{{ comic.title }}</h5>
+					</div>
+				</div>
+			{% endfor %}
+			<div class="card me-2 ms-2 mt-auto mb-auto comic-card p-2">
+				<div class="card-body text-center">
+					<a href="{{ url_for('main.top_picks') }}">
+						<i class="bi bi-plus-circle" style="font-size: 2rem"></i>
+                        <br>
+						<p>More</p>
+					</a>
+				</div>
+			</div>
+		</div>
+    </div>
+</section>
+
+{% endblock %}

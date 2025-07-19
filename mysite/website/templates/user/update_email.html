@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block styles %}
+<style>
+    .form-container {
+        padding: 2rem;
+        margin: 4rem auto;
+        border: 2px solid rgb(71, 71, 71);
+        border-radius: 9px;
+        max-width: 510px;
+        display: grid;
+        align-self: center;
+        background-color: #25647a;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="p-5 mt-5 mb-5 ms-md-auto me-md-auto form-container">
+    <h2 class="h2 mb-md-4">Update Email</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset>
+            <div class="mt-2 mb-3">
+                {{ form.email.label(class="form-label") }}
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control") }}
+                {% endif %}
+            </div>
+            {{ form.submit(class="btn btn-primary mb-2") }}
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

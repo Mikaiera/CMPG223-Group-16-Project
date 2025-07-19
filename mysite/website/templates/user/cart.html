@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .card {
+        background-color: rgb(120, 120, 120, 0.2) !important;
+        color: var(--primary-text-colour);
+        border: none !important;
+        border-radius: 5px;
+    }
+
+    .card img {
+        align-self: start;
+        max-height: 220px;
+    }
+
+    .img-div {
+        padding: 0;
+    }
+
+    .cancel-button {
+        display: grid;
+        align-self: center;
+    }
+
+    .card-body {
+        padding: 0 1rem;
+        display: grid;
+        align-self: center;
+    }
+
+    @media screen and (max-width: 576px) {
+        .cover {
+            padding-top: 0.5rem;
+        }
+        .cancel-button {
+            display: grid;
+            align-self: flex-end;
+            padding: 0 1rem;
+            padding-bottom: 0.5rem;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <div class="container-md mt-4 mb-4" style="max-width: 1048px;">
+        <div class="d-flex">
+            <h3 class="h2 me-auto"><i class="bi bi-cart4" style="font-size: 30px;"></i> Cart</h3>
+            {% if length > 0 %}
+            <a href="{{ url_for('others.checkout') }}" class="btn btn-primary ms-auto mt-auto mb-auto">Check out</a>
+            {% endif %}
+        </div>
+        <hr style="height: 4px;">
+        <div class="ps-2" style="min-height: 360px;">
+            {% if length == 0 %}
+                <p>Cart empty. Lets add some items <a href="{{ url_for('main.comics') }}" style="cursor: pointer;">Take me back.</a></p>
+            {% else %}
+                <!-- The description display -->
+                <div class="max-width row d-sm-flex d-none">
+                    <p class="col-1 fs-5 fw-light">
+        
+                    </p>
+                    <p class="col-4 fs-5 fw-light">
+                        TITLE
+                    </p>
+                    <p class="col-2 fs-5 fw-light">
+                        CATEGORY
+                    </p>
+                    <p class="col-2 fs-5 fw-light">
+                        PRICE
+                    </p>
+                    <p class="col-2 fs-5 fw-light">
+                        QUANTITY
+                    </p>
+                    <p class="col-1 fs-5 fw-light">
+                        
+                    </p>
+
+                </div>
+                <!-- Display the cart items -->
+                {% for comic in items %}
+                    <div class="card mb-3 me-auto border p-1 ms-auto me-auto">
+                        <div class="row row-cols-1 row-cols-sm-4 g-0" >
+                            <div class="img-div col-sm-1">
+                                <a href="{{ url_for('main.comic_info', title_query=comic.comic_book.title_query) }}">
+                                    <img src="{{ url_for('static', filename='images/comic_images/'+comic.comic_book.filename) }}" alt="Comic Book Cover" style="max-width: 60px;">
+                                </a>
+                            </div>
+                            <div class="col-sm-4 card-body d-flex">
+                                <p class="m-0 fw-light ">{{ comic.comic_book.title }}</p>
+                            </div>
+                            <div class="col-sm-2 card-body d-flex">
+                                <p class="m-0 fw-light">{{ comic.comic_book.category }}</p>
+                            </div>
+                            <div class="col-sm-2 card-body d-flex">
+                                <p class="m-0 fw-light" id="price" name="">R {{ comic.comic_book.price * comic.quantity }}0</p>
+                            </div>
+                            <div class="col-sm-2 card-body d-flex">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    {% if comic.quantity > 1 %}
+                                        <a class="btn btn-primary" href="{{ url_for('action.update_quantity', title_query=comic.comic_book.title_query, count=-1, next=request.url) }}">-</a>
+                                    {% else %}
+                                        <a class="btn btn-primary disabled" href="#">-</a>
+                                    {% endif %}
+                                    <button class="btn btn-primary">{{ comic.quantity }}</button>
+                                    {% if comic.quantity < 2 or comic.quantity <= comic.comic_book.stock_quantity %}
+                                        <a class="btn btn-primary" href="{{ url_for('action.update_quantity', title_query=comic.comic_book.title_query, count=1, next=request.url) }}">+</a>
+                                    {% else %}
+                                        <a class="btn btn-primary disabled" href="#">+</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-1 cancel-button justify-content-sm-center">
+                                <form action="{{ url_for('action.remove_from_cart', title_query=comic.comic_book.title_query, next=request.url) }}" method="POST">
+                                    <button type="submit" class="btn btn-outline-secondary"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip"
+                                            data-bs-title="Remove from cart">
+                                        <i class="bi bi-x-square-fill"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+    let price = document.getElementById("price")
+    let selectElement = document.querySelector('#quantity');
+</script>
+{% endblock %}

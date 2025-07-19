@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .error-div {
+        margin: 8.55rem auto;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="container max-width error-div">
+    <h1 class="h1">Page Not Found</h1>
+    <p>What you were looking for is just not here. <a href="{{ url_for('main.home') }}">Go to home</a>.</p>
+</div>
+{% endblock %}

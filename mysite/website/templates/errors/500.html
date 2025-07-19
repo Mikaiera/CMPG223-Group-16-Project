@@ -1,0 +1,14 @@
+{% block styles %}
+<style>
+    .error-div {
+        margin: 8.55rem auto;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="container max-width error-div">
+    <h1 class="h1">Internal server error</h1>
+    <p>There seems to be a problem on our end. <a href="{{ url_for('main.home') }}">Go to home</a>.</p>
+</div>
+{% endblock %}

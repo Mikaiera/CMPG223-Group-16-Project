@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .d-logo {
+        font-size: 5rem;
+        font-family: calibri;
+        font-weight: 400;
+        color: var(--primary-text-colour);
+        border-style: solid;
+        border-width: 0.4rem;
+        border-color: var(--primary-text-colour);
+        padding: 2px 10px;
+        margin: auto;
+        margin-bottom: 2rem;
+    }
+
+    .authors img {
+        width: 100%;
+        max-width: 320px;
+        height: auto;
+        margin: auto;
+        display: grid;
+        align-self: center;
+    }
+
+    .strip {
+        padding: 2rem 0;
+    }
+
+    .drawers .card {
+        border: none;
+        background-color: transparent;
+        color: var(--primary-text-colour);
+    }
+
+    .drawers .card img{
+        max-width: 280px;
+        border-radius: 360px;
+        margin: auto;
+    }
+
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section class="pb-4 pt-4">
+    <div class="container-md max-width">
+        <h3 class="h3 display-3 mt-3 mb-3">Who are we?</h3>
+        <h2 class="mt-2 ms-auto me-auto">
+            Nebula Narratives: Where Cosmic Curiosities Collide!
+        </h2>
+        <p>
+            In Cradlestone Mall, Nebula Narratives awaits a celestial sanctuary where ink dances with quasars. Our Fabulous Five passionate as pulsars curate graphic novels, rare issues, and interdimensional zines. Freelancers contribute mind-bending tales, and our webstore? A wormhole to wonder. Launch into Nebula Narratives; every panel is a portal, every reader a celestial traveler.
+        </p>
+        <br>
+        <span>
+            <p>
+                Email us: <a href="mailto:NebulaNarratives@info.com">NebulaNarratives@info.com</a>
+            </p>
+
+            <p>
+                Call us: <a href="tel:+27113473846">011-347-3846</a>
+            </p>
+            <p>
+                Complaints: Doubt youll have any but if there is a complaint use the <a href="mailto:NebulaNarratives@info.com">email above</a>.
+            </p>
+            <code >PLEASE NOTE: This is a **FICTIONAL** Store. Done For university project</code>
+        </span>
+        <div class="image pt-4 pb-4 ms-auto me-auto">
+            <span class="d-logo">NebulaNarratives</span>
+        </div>
+    </div>
+</section>
+<hr class="section-divider">
+
+<section class="authors pt-3 pb-5" id="team">
+    <div class="container-md mt-md-3 max-width">
+        <h3 class="h3 display-3 mt-3 mb-3 text-center">The team</h3>
+        <div class="row row-cols-1 row-cols-md-2 strip">
+            <div class="col-md-4 ms-auto me-auto mb-md-0 mb-3">
+                <img src="{{ url_for('static', filename='images/team_images/team.png') }}" class="border-rounded" alt="COmic book cover">
+            </div>
+            <div class="col-md-8 description d-grid mt-auto mb-auto">
+                <h2 class="h2">Lethogonolo Magano (Yoda) </h2>
+                <p>Yoda's superpower? Getting along with everyone. He's the guy who mediates between rival factions at the office water cooler cause he is so chill that his vibes could calm a hurricane. His secret? He is the laidback sage, “Life's too short for drama, dudes.”</p>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 strip">
+            <div class="col col-md-4 ms-auto me-auto mb-md-0 mb-3 d-md-none">
+                <img src="{{ url_for('static', filename='images/team_images/team.png') }}" class="border-rounded" alt="Picture">
+            </div>
+            <div class="col col-md-8 description d-grid mt-auto mb-auto">
+                <h2 class="h2">Mekayla Moyikwa (Meeeks)</h2>
+                <p>I am Batman!</p>
+            </div>
+            <div class="col col-md-4 ms-auto me-auto mb-md-0 mb-3 d-none d-md-flex">
+                <img src="{{ url_for('static', filename='images/team_images/team.png') }}" class="border-rounded" alt="Picture">
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 strip">
+            <div class="col col-md-4 ms-auto me-auto mb-md-0 mb-3">
+                <img src="{{ url_for('static', filename='images/team_images/team.png') }}" class="border-rounded" alt="Picture">
+            </div>
+            <div class="col col-md-8 description d-grid mt-auto mb-auto">
+                <h2 class="h2">Lebogang Masiwana (Nester)</h2>
+                <p> Lebo's demeanor is tranquil, like a still pond reflecting the moon. She rarely raises her voice, preferring quiet conversations over raucous laughter. Her friends say she's the human embodiment of chamomile tea.Her eyes convey understanding, and her words are carefully chosen. People confide in her, knowing their secrets are safe within her gentle heart.She quotes ancient muscians, and imparts timeless lessons. Her favorite phrase? “The river flows, and so must we.”</p>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 strip">
+            <div class="col col-md-4 ms-auto me-auto mb-md-0 mb-3 d-md-none">
+                <img src="{{ url_for('static', filename='images/team_images/team.png') }}" class="border-rounded" alt="Picture">
+            </div>
+            <div class="col col-md-8 description d-grid mt-auto mb-auto">
+                <h2 class="h2">Tshiamo Kgosiemang (rebArt05)</h2>
+                <p>RebArts voice echoes through crowded hallways. She laughs with abandon, sings off-key, and cheers at the top of her lungs during F1 races. Her motto? “Lifes too short to whisper".A character who's as colorful as her wardrobe and as bold as her laughter rebArt dives headfirst into every adventure. Fear? She thinks its overrated.</p>
+            </div>
+            <div class="col col-md-4 ms-auto me-auto mb-md-0 mb-3 d-none d-md-flex">
+                <img src="{{ url_for('static', filename='images/team_images/team.png') }}" class="border-rounded" alt="Picture">
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 strip">
+            <div class="col col-md-4 ms-auto me-auto mb-md-0 mb-3">
+                <img src="{{ url_for('static', filename='images/team_images/team.png') }}" class="border-rounded" alt="Picture">
+            </div>
+            <div class="col col-md-8 description d-grid mt-auto mb-auto">
+                <h2 class="h2">Thato Mooketsi (LunarT-30)</h2>
+                <p>LunarT dissects the universe with the precision of a surgeon who wears his brilliance lightly, as if it were a well-worn scarf. Beneath the warmth lies a quiet strength.His smile is a sunbeam. LunarT greets everyone as if they're long-lost friends. He believes in the inherent goodness of humanity, even when faced with evidence to the contrary. “People,” he says, “are like constellations—each unique, each part of a grander pattern.”</p>
+            </div>
+        </div>
+        </div>
+    </div>
+</section>
+<section class="drawers pt-4 pb-3">
+    <div class="max-width">
+        <h3 class="h3 display-3 mb-5 text-center">Top illustrators</h3>
+        <div class="row row-cols-1 row-cols-md-3">
+            <div class="col">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/person.jpg') }}" class="card-img-top" alt="Illustrator picture">
+                    <hr>
+                    <div class="card-body">
+                        <h3 class="card-title h3">Kandi Payne</h3>
+                        <p class="card-text">Your favorite illustrator</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/person.jpg') }}" class="card-img-top" alt="Illustrator picture">
+                    <hr>
+                    <div class="card-body">
+                        <h3 class="card-title h3">Lapis Lazuli</h3>
+                        <p class="card-text">Comedy and Romance are my thing</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <img src="{{ url_for('static', filename='images/person.jpg') }}" class="card-img-top" alt="Illustrator picture">
+                    <hr>
+                    <div class="card-body">
+                        <h3 class="card-title h3">Metallik</h3>
+                        <p class="card-text">Bring the action and give some fantasy worlds</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

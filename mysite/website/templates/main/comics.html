@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/comics.css') }}">
+{% endblock styles %}
+
+{% block content %}
+{% for key in comics %}
+	<section class="pt-3 pb-3">
+		<div class="max-width ms-auto me-auto">
+			<div class="category-header d-flex">
+				<h3 class="h3 category-title"><a href="{{ url_for('main.comic_category', category_query=key) }}">{{ key.capitalize()}}</a></h3>
+				<div class="scroll-buttons ms-auto me-md-5 me-3">
+					<!-- <span class="fs-5"><a href="#">More ></a></span> -->
+					<!-- <i class="bi bi-caret-left-fill"></i>
+					<i class="bi bi-caret-right-fill"></i> -->
+				</div>
+			</div>
+			<div class="comic-shelf">
+				{% for comic in comics[key] %}
+					<div class="card">
+						<a href="{{ url_for('main.comic_info', title_query=comic.title_query) }}">
+							<img src="{{ url_for('static', filename='images/comic_images/'+comic.filename) }}" class="card-img-top" alt="Comic Book Cover">
+						</a>
+						<div class="card-body">
+							<h5 class="card-title h6 mt-0 mb-1">{{ comic.title }}</h5>
+							<small class="">By {{ comic.author }}</small>
+						</div>
+					</div>
+				{% endfor %}
+				<div class="card me-2 ms-2 mt-auto mb-auto comic-card p-2">
+					<div class="card-body text-center">
+						<a href="{{ url_for('main.comic_category', category_query=key) }}">
+							<i class="bi bi-plus-circle" style="font-size: 2rem"></i><br>
+							<p>More</p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endfor %}
+
+<script>
+	// var button = document.querySelector('.bi-arrow-right');
+	// button.onclick = function () {
+	// 	var container = document.querySelector('.comic-shelf');
+	// 	sideScroll(container,'right',25,100,10);
+	// };
+
+	// var back = document.getElementById('.bi-arrow-left');
+	// back.onclick = function () {
+	// 	var container = document.querySelector('.comic-shelf');
+	// 	sideScroll(container,'left',25,100,10);
+	// };
+
+	// function scroll(element, ) {
+
+	// }
+
+	// function sideScroll(element,direction,speed,distance,step){
+	// 	scrollAmount = 0;
+	// 	var slideTimer = setInterval(function(){
+	// 		if(direction == 'left'){
+	// 			element.scrollLeft -= step;
+	// 		} else {
+	// 			element.scrollLeft += step;
+	// 		}
+	// 		scrollAmount += step;
+	// 		if(scrollAmount >= distance){
+	// 			window.clearInterval(slideTimer);
+	// 		}
+	// 	}, speed);
+	// }
+</script>
+
+{% endblock %}

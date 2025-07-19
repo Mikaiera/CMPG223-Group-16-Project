@@ -1,0 +1,82 @@
+/* This stylesheet is strictly for the home (index) page */
+
+/* ========== Carousel (Section one) ========== */
+.carousel{
+    width: auto;
+    margin: auto;
+}
+
+.carousel-item {
+    padding: 1rem 0;
+    min-height: 402px;
+}
+
+.carousel-item:nth-child(1) {
+    background-color: rgb(130, 1, 169);
+    background-image: linear-gradient(to left, purple, red);
+}
+
+.carousel-item:nth-child(2) {
+    background-color: green;
+}
+
+.carousel-item:nth-child(3) {
+    background-color: rgb(59, 57, 57);
+}
+
+/* .carousel-slide-1 {
+    
+} */
+
+/* ========== Comic section (Section 4-6) ========== */
+/* Comic book container */
+.comic-shelf {
+    display: flex;
+    overflow-y: scroll;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.comic-shelf::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.comic-shelf {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+/* Comic book decorations */
+.comic-shelf .card {
+    margin: 0 0.3rem;
+    padding: 0.4rem;
+    background-color: transparent;
+    color: var(--primary-text-color);
+    width: 200px; 
+    min-width: 200px;
+    border: none; 
+    border-radius: 0 !important;
+}
+
+.comic-shelf .card a {
+    text-decoration: none;
+}
+
+.comic-shelf .card img {
+    border-radius: 0 !important;
+    box-shadow: 5px 10px 0px 0 rgba(246, 246, 246, 0.434);
+}
+
+/* ========== About section ========== */
+.section-about .card {
+    border: none !important;
+    color: var(--primary-text-colour);
+    background-color: transparent !important;
+}
+
+.section-about .card img {
+    height: 1.5rem;
+    width: auto;
+}
+
+

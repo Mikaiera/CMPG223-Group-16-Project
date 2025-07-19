@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .card {
+        background-color: rgba(120, 120, 120, 0) !important;
+        color: var(--primary-text-colour);
+        border-left: 5px solid;
+        border-right: 5px solid;
+        border-radius: 0;
+    }
+
+    .card img {
+        margin: auto;
+    }
+
+    .img-div {
+        padding: 0;
+    }
+
+    .card-body {
+        padding: 0 1rem;
+        display: grid;
+        align-self: center;
+    }
+
+    @media screen and (max-width: 576px) {
+        .cover {
+            padding-top: 0.5rem;
+        }
+        .cancel-button {
+            display: grid;
+            align-self: flex-end;
+            padding: 0 1rem;
+            padding-bottom: 0.5rem;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <div class="container-md mt-4 mb-4" style="max-width: 1048px;">
+        <p class="h1 mb-sm-5">Top 10 Comic Income Report</p>
+        
+        <div class="container">
+            <!-- Period Selection Buttons -->
+            <div class="report-buttons mb-4">
+                <a href="{{ url_for('users.report_income', period='annual') }}" class="btn btn-primary">Annual Report</a>
+                <a href="{{ url_for('users.report_income', period='quarterly') }}" class="btn btn-primary">Quarterly Report</a>
+                <a href="{{ url_for('users.report_income', period='biannual') }}" class="btn btn-primary">Bi-Annual Report</a>
+            </div>
+
+            {% if comics %}
+                {% for comic, income in comics %}
+                    <div class="card mb-3 me-auto border p-1 ms-auto me-auto">
+                        <div class="row row-cols-1 row-cols-sm-2 g-0">
+                            <div class="col-sm-6 card-body d-flex">
+                                <p class="m-0 fs-5 fw-light">Comic Title: {{ comic }}</p>
+                            </div>
+                            <div class="col-sm-6 card-body d-flex">
+                                <p class="fs-5 m-0 fw-light">Potential Income: R{{ income }}0</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No comics data available to display.</p>
+            {% endif %}
+        </div>
+
+        <!-- Matplotlib Plot Integration -->
+        <div class="container mt-4">
+            <h2>Top 10 Income per Period</h2>
+            <img src="{{ url_for('static', filename='images/stock_income_' + period + '.png') }}" alt="Income of Stock Plot" />
+            <a href="{{ url_for('users.download_income_pdf', period=period) }}" class="btn btn-primary mt-3">Download {{ period.capitalize() }} PDF</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

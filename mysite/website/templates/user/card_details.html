@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  
+}
+
+/* Firefox */
+/* input[type=number] {
+  -moz-appearance: textfield;
+} */
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section class="p-3">
+    <div class="container-md mt-md-3 mb-md-3" style="max-width: 1048px;">
+        <h2 class="h2 mt-3 mb-3">Add Payment Method</h2>
+        <hr style="height: 4px;">
+        <div class="row ms-auto me-auto" style="max-width: 560px;">
+            <div class="col">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group row row-cols-1 row-cols-md-2 d-md-flex">
+                        <div class="mt-2 mb-3 col">
+                            {{ form.first_name.label(class="form-label") }}
+                            {% if form.first_name.errors %}
+                                {{ form.first_name(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.first_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.first_name(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="mt-2 mb-3 col">
+                            {{ form.last_name.label(class="form-label") }}
+                            {% if form.last_name.errors %}
+                                {{ form.last_name(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.last_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.last_name(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mt-2 mb-3">
+                        {{ form.card_number.label(class="form-label") }}
+                        {% if form.card_number.errors %}
+                            {{ form.card_number(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.card_number.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.card_number(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    <div class="mt-2 mb-3">
+                        {{ form.card_brand.label(class="form-label") }}
+                        <div class="row d-flex">
+                            <div class="col-7">
+                                {{ form.card_brand(class="form-select col-7") }}
+                            </div>
+                            <div class="col-5 mt-auto mb-auto">
+                                <img src="{{ url_for('static', filename='images/card_images/mastercard_thumb.png') }}" alt="" id="thumb" style="max-height: 36px; width: auto;">
+                            </div>
+                        </div>
+                    </div>
+                    <span class="mt-2 mb-2 form-label">Expiry date</span>
+                    <br>
+                    <div class="form-group d-flex mb-3 ">
+                        <div class="" style="max-width: 4rem;">
+                            {{ form.expiry_month.label(class="form-label") }}
+                            {% if form.expiry_month.errors %}
+                                {{ form.expiry_month(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.expiry_month.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.expiry_month(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <span class="mt-auto ms-3 me-3 fs-3">/</span>
+                        <div class="" style="max-width: 4rem;">
+                            {{ form.expiry_year.label(class="form-label") }}
+                            {% if form.expiry_year.errors %}
+                                {{ form.expiry_year(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.expiry_year.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.expiry_year(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="form-group mt-2 mb-3" style="max-width: 7rem;">
+                        {{ form.cvv.label(class="form-label") }}
+                        {% if form.cvv.errors %}
+                            {{ form.cvv(class="form-control is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.cvv.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.cvv(class="form-control") }}
+                        {% endif %}
+                    </div>
+                    {{ form.submit(class="btn btn-primary mb-2") }}
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    document.querySelector('#card_number').addEventListener('keydown', (e) => {
+    e.target.value = e.target.value.replace(/(\d{4})(\d+)/g, '$1 $2')
+    })
+
+    document.querySelector('#card_brand').addEventListener('click', (e) => {
+        img_thumbnail = document.querySelector('#thumb')
+        img_thumbnail.src = "/static/images/card_images/" + e.target.value.toLowerCase() + "_thumb.png"
+    })
+</script>
+{% endblock %}

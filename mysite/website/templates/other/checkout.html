@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .card {
+        background-color: transparent !important;
+        border: none !important;
+        color: var(--primary-text-colour);
+        height: 80px;
+        /* box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.26); */
+    }
+    .card img {
+        height: 100%;
+    }
+
+    .summary {
+        box-shadow: 0 0 5px 5px rgba(8, 8, 8, 0.26);
+    }
+    
+    .summary li{
+        background-color: transparent !important;
+        border: none !important;
+        color: var(--primary-text-colour);
+    }
+
+    .invisible {
+        visibility: hidden;
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<div class="container-md mt-md-3 pt-2 pb-4 max-width">
+    <div class="d-flex">
+        <h2 class="h2">Checkout</h2>
+        <a class="ms-auto" href="{{ url_for('users.cart') }}">Back to cart</a>
+    </div>
+    <hr>
+    <div class="row row-cols-1 row-cols-md-2 p-4">
+        <div class="col-md-7 p-3 summary">
+            <h2 class="h2 mb-3">Order summary:</h2>
+            <hr style="height: 4px;">
+            <ul class="list-group list-group-flush">
+                {% for comic in items %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <span class="col-9 me-auto">{{ comic.quantity }} x {{ comic.comic_book.title }}</span>
+                            <span class="col-3">R{{ comic.comic_book.price * comic.quantity }}0</span>
+                            <br>
+                        </div>
+                    </li>
+                
+                {% endfor %}
+            </ul>
+            <span>Estimated Delivery Date</span>
+            <div class="d-flex row">
+                <span class="col-10 m-auto" id="m-date"></span>
+            </div>
+            <div class="d-flex row">
+                <span class="col-10 m-auto" id="d-date"></span>
+            </div>
+            <div class="d-flex row">
+                <div class="col-9">
+                    <h4 class="h4">Total: </h4>
+                </div>
+                <div class="col-3 m-auto">
+                    <h4 class="h4 m-auto">R {{ total }}0 </h4>
+                </div>
+            </div>                
+            <hr style="height: 4px;">
+            <div class="d-flex row">
+                <div class="col-9">
+                    <h4 class="h4">VAT: </h4>
+                </div>
+                <div class="col-3 m-auto">
+                    <h4 class="h4 m-auto">R {{ round(total * 0.14, 2) }}0 </h4>
+                </div>
+            </div>
+            <div class="d-flex row mt-3">
+                <div class="col-9">
+                    <h4 class="h4">Total: </h4>
+                    <p class="">(Incl. VAT)</p>
+                </div>
+                <div class="col-3 m-auto">
+                    <h4 class="h4 m-auto">R {{ total + (total * 0.14)}}0 </h4>
+                </div>
+            </div>
+            <form action="" method="POST">
+                {{ form.submit(class="btn btn-primary invisible") }}
+            </form>
+        </div>
+        <div class="col-md-5 mb-md-0 mb-4 p-3 ps-5">
+            <h2 class="h2 mb-3">Select Payment Method</h2>
+            <form action="" method="post" id="form">
+                {% for card in cards %}
+                <div class="form-check form">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault{{ card.card_number[10:12]  }}">
+                    <label class="form-check-label" for="flexRadioDefault{{ card.card_number[10:12] }}">
+                        <div class="card mb-3 me-auto border p-1 ms-auto me-auto" style="max-width: 450px;">
+                            <div class="row g-0">
+                                <div class="col-2 mt-auto mb-auto">
+                                    <img src="{{ url_for('static', filename='images/card_images/' + card.card_brand +'_thumb.png' )}}" class="img-fluid rounded-start img-thumbnail" alt="Card">
+                                </div>
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <h5 class="fs-5 m-0">Card ending with *{{ card.card_number[-1:-5:-1] }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+                {% endfor %}
+            </form>
+            {% if length2 < 3 %}
+                <h5 class="fs-5 m-0"><a href="{{ url_for('others.add_card_details', next=request.url) }}" class="btn btn-primary">Add Payment Method</a></h5>
+            {% endif %}
+        </div>
+        
+    </div>
+</div>
+<script>
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0"); // get the date padStart => 01
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+    var fullDate = dd + "." + mm + "." + yyyy;
+
+    var someDate = new Date();
+    var numberOfDaysToAdd = 6;
+    someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
+
+    var dd = String(someDate.getDate()).padStart(2, "0");
+    var mm = String(someDate.getMonth() + 1).padStart(2, "0");
+    var y = someDate.getFullYear();
+
+    var someFormattedDate = dd + "." + mm + "." + y;
+
+    today = "Ordered on: " + fullDate  
+    deliveryDay = " Delivery Date: " + someFormattedDate;
+
+    document.getElementById("m-date").innerHTML = today;
+    document.getElementById("d-date").innerHTML = deliveryDay;
+    document.querySelector('#form').addEventListener('click', (e) => {
+        document.querySelector('#submit').classList.remove("invisible")
+    })
+</script>
+
+{% endblock %}

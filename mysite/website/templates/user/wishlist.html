@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    img {
+        max-height: 200px;
+        margin: auto;
+    }
+    .card {
+        background-color: transparent;
+        border: none;
+
+    } 
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <div class="container-md mt-4 mb-4" style="max-width: 1048px;">
+        <div class="d-flex">
+            <h3 class="h2 me-auto"><i class="bi bi-heart-filled" style="font-size: 30px;"></i>  Wishlist</h3>
+        </div>
+        <hr style="height: 4px;">
+        <div class="ps-2" style="min-height: 360px;">
+            {% if length == 0 %}
+                <p>No items</p>
+            {% else %}
+                {% for comic in items %}
+                    <div class="card mb-3 me-auto border p-1 ms-auto me-auto" style="max-width: 600px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <a href="{{ url_for('main.comic_info', title_query=comic.comic_book.title_query) }}">
+                                    <img src="{{ url_for('static', filename='images/comic_images/'+comic.comic_book.filename) }}" class="img-fluid rounded-start img-thumbnail" alt="Comic Book Cover">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="fs-4 m-0">{{ comic.comic_book.title.title() }}</h5>
+                                    <hr style="width: 98%; color: #eee; height: 4px;">
+                                    <p class="fs-4">R {{ comic.comic_book.price }}</p>
+                                    <div class="d-flex">
+                                        <form action="{{ url_for('action.remove_from_wishlist', title_query=comic.comic_book.title_query, next=request.url) }}" method="POST">
+                                            <button type="submit" class="btn btn-primary">Remove from Wishlist</button>
+                                        </form>
+                                        <form class="ms-auto" action="{{ url_for('action.add_to_cart', title_query=comic.comic_book.title_query, next=request.url) }}" method="POST">
+                                            {% if in_cart%}
+                                            <a href="{{ url_for('users.cart') }}" class="btn btn-secondary">In cart</a>
+                                            {% else %}
+                                            <button type="submit" class="ms-auto btn btn-primary">Add to cart</button>
+                                            {% endif %}
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

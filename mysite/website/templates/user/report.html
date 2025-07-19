@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    .card {
+        background-color: rgba(120, 120, 120, 0) !important;
+        color: var(--primary-text-colour);
+        border-left: 5px solid;
+        border-right: 5px solid;
+        border-radius: 0;
+    }
+
+    .card img {
+        margin: auto;
+    }
+
+    .img-div {
+        padding: 0;
+    }
+
+    .card-body {
+        padding: 0 1rem;
+        display: grid;
+        align-self: center;
+    }
+
+    .form-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .form-label {
+        margin-bottom: 0;
+    }
+
+    .form-select {
+        width: auto;
+        max-width: 200px;
+    }
+
+    .form-btn {
+        height: 2.5rem;
+    }
+
+    @media screen and (max-width: 576px) {
+        .cover {
+            padding-top: 0.5rem;
+        }
+        .cancel-button {
+            display: grid;
+            align-self: flex-end;
+            padding: 0 1rem;
+            padding-bottom: 0.5rem;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <div class="container-md mt-4 mb-4" style="max-width: 1048px;">
+        <p class="h1 mb-sm-5">Top 10 Comics</p>
+        
+        <!-- Sorting Form -->
+        <form action="{{ url_for('users.report') }}" method="GET" class="mb-4 form-container">
+            <label for="sort_order" class="form-label">Sort By:</label>
+            <select name="sort_order" id="sort_order" class="form-select">
+                <option value="none" {% if request.args.get('sort_order') == 'none' %}selected{% endif %}>Unsorted</option>
+                <option value="asc" {% if request.args.get('sort_order') == 'asc' %}selected{% endif %}>Ascending</option>
+                <option value="desc" {% if request.args.get('sort_order') == 'desc' %}selected{% endif %}>Descending</option>
+            </select>
+            <button type="submit" class="btn btn-primary form-btn">Generate Report</button>
+        </form>
+
+        <div class="container">
+            {% if comics %}
+                {% for comic, stock_quantity in comics %}
+                    <div class="card mb-3 me-auto border p-1 ms-auto me-auto">
+                        <div class="row row-cols-1 row-cols-sm-2 g-0">
+                            <div class="col-sm-6 card-body d-flex">
+                                <p class="m-0 fs-5 fw-light">Comic Title: {{ comic }}</p>
+                            </div>
+                            <div class="col-sm-6 card-body d-flex">
+                                <p class="fs-5 m-0 fw-light">Stock Quantity: {{ stock_quantity }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No comics data available to display.</p>
+            {% endif %}
+        </div>
+
+        <!-- Matplotlib Plot Integration -->
+        <div class="container mt-4">
+            <h2>Top 10 Products by Stock Quantity</h2>
+            <img src="{{ url_for('static', filename='images/stock_quantity.png') }}" alt="Stock Quantity Plot" />
+            <a href="{{ url_for('users.download_pdf', sort_order=request.args.get('sort_order', 'none')) }}" class="btn btn-primary mt-3">Download PDF</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

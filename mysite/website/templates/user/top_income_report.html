@@ -1,0 +1,79 @@
+{% comment %} {% extends "base.html" %}
+
+{% block styles %}
+<style>
+    .card {
+        background-color: rgba(120, 120, 120, 0) !important;
+        color: var(--primary-text-colour);
+        border-left: 5px solid;
+        border-right: 5px solid;
+        border-radius: 0;
+    }
+
+    .card img {
+        margin: auto;
+    }
+
+    .img-div {
+        padding: 0;
+    }
+
+    .card-body {
+        padding: 0 1rem;
+        display: grid;
+        align-self: center;
+    }
+
+    @media screen and (max-width: 576px) {
+        .cover {
+            padding-top: 0.5rem;
+        }
+        .cancel-button {
+            display: grid;
+            align-self: flex-end;
+            padding: 0 1rem;
+            padding-bottom: 0.5rem;
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <div class="container-md mt-4 mb-4" style="max-width: 1048px;">
+        <p class="h1 mb-sm-5">{{ report_type }}</p>
+
+        <div class="container">
+            {% if income_data %}
+                {% for order in income_data %}
+                    <div class="card mb-3 me-auto border p-1 ms-auto me-auto">
+                        <div class="row row-cols-1 row-cols-sm-2 g-0">
+                            <div class="col-sm-6 card-body d-flex">
+                                <p class="m-0 fs-5 fw-light">Order ID: {{ order.id }}</p>
+                            </div>
+                            <div class="col-sm-6 card-body d-flex">
+                                <p class="fs-5 m-0 fw-light">Total Income: ${{ order.total_income }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No income data available.</p>
+            {% endif %}
+        </div>
+
+        {% if top_income %}
+            <h2 class="mt-4">Top 10 Income</h2>
+            <ul>
+                {% for income in top_income %}  
+                    <li>
+                        Order ID: {{ income[0] }} - Total Income: ${{ income[1] }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No top income data available.</p>
+        {% endif %}
+    </div>
+</section>
+{% endblock %} {% endcomment %}

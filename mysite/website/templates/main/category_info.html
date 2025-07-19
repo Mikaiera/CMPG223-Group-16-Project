@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block styles %}
+<style>
+    section {
+        background-image: linear-gradient(to bottom left, rgb(248, 79, 107), rgb(223, 159, 40));
+    }
+
+    h2 {
+        color: white !important;
+    }
+
+    /* Comic book decorations */
+    .card {
+        margin: 1rem 0;
+        padding: 0.4rem;
+        background-color: darkblue;
+        color: white;
+        font-family: calibri;
+        width: 225px; 
+        min-width: 225px;
+        height: 400.33px;
+        border: none; 
+    }
+
+    .card a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .display-grid {
+        display: grid;
+        justify-items: center;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat({{ rows }}, 1fr);
+    }
+
+    @media screen and (max-width: 1010px) {
+        .display-grid {
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 792px) {
+        .display-grid {
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+        }
+    }
+
+    @media screen and (max-width: 540px) {
+        .display-grid {
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat({{ left_over }}, 1fr);
+        }
+    }
+</style>
+{% endblock styles %}
+
+{% block content %}
+<section>
+    <div class="max-width p-4 ms-auto me-auto">
+        <h2 class="h2">{{ title }}</h2>
+        <div class="display-grid">
+            {% for comic in comics.items %}
+            <div class="card">
+                <a href="{{ url_for('main.comic_info', title_query=comic.title) }}">
+                    <img src="{{ url_for('static', filename='images/comic_images/'+comic.filename) }}" class="card-img-top" alt="Comic Book Cover">
+                </a>
+                <div class="card-body text-center">
+                    <h5 class="card-title h5 mt-0 mb-1">{{ comic.title }}</h5>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+        <ul class="pagination">
+            <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>
+            {% for page_num in comics.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+                {% if page_num %}
+                    {% if comics.page == page_num %}
+                        <li class="page-item active"><a href="{{ url_for('main.comic_category', category_query=title.replace(':', '').replace('\'', '').replace(' ', '-').lower(), page=page_num) }}" class="page-link">{{ page_num }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a href="{{ url_for('main.comic_category', category_query=title.replace(':', '').replace('\'', '').replace(' ', '-').lower(), page=page_num) }}" class="page-link">{{ page_num }}</a></li>
+                    {% endif %}
+                {% else %}
+                <li class="page-item">...</li>
+                {% endif %}
+            {% endfor %}
+            <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+            
+        </ul>
+    </nav>
+</section>
+
+{% endblock %}

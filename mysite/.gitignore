@@ -1,0 +1,67 @@
+### Python ###
+__pycache__/
+*.py[cod]
+.python-version
+*.egg-info/
+dist/
+build/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+### Flask ###
+instance/
+*.db
+*.sqlite
+*.log
+
+### Environment ###
+.env
+.secrets
+.envrc
+
+### OS generated files ###
+Thumbs.db
+.DS_Store
+desktop.ini
+
+### Editor/IDE ###
+# VS Code
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+*.sublime-*
+.coverage
+htmlcov/
+.pytest_cache/
+test-reports/
+*.spec
+*.exe
+*.msi
+alembic.ini
+migrations/versions/
+node_modules/
+static/css/
+static/js/bundle.js
+docs/_build/
+config.py
+
+# Ignore uploaded files if stored locally
+uploads/
+
+temp/
+tmp/
