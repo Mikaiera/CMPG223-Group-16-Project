@@ -1,6 +1,6 @@
 # Nebula Narratives - E-commerce Comic Platform
 
-![Project Banner](/)
+![Main Page](/app-preview/Main.png)
 
 Nebula-Narratives is a full-featured e-commerce platform for comic enthusiasts, developed as the CMPG 223 final project for Semester 2, 2024. This Flask-based application enables users to browse, purchase, and manage comics while providing administrators with comprehensive management tools.
 
@@ -16,7 +16,13 @@ Nebula-Narratives is a full-featured e-commerce platform for comic enthusiasts, 
 - Sales report generation with visual charts (top 10 comics)
 - Income report generation
 
-![Project Banner](/)
+![Cart Items](/app-preview/in-cart.png)
+
+![Checkout/Purchase Summary](/app-preview/checkout-summary.png)
+
+![User Library](/app-preview/library.png)
+
+![User WishList](/app-preview/wishlist.png)
 
 ### 📚 Comic Features
 - Detailed comic listings (images, descriptions, authors, illustrators)
@@ -24,9 +30,9 @@ Nebula-Narratives is a full-featured e-commerce platform for comic enthusiasts, 
 - Sold-out indicators for unavailable items
 - Purchase history tracking
 
-![Project Banner](/)
+![Comic Added to cart](/app-preview/add-to-cart.png)
 
-![Project Banner](/)
+![Comic Detail](/app-preview/comic-details.png)
 
 ### 👑 Admin Features
 - Admin dashboard accessible at ` URL.../admin`
@@ -35,21 +41,22 @@ Nebula-Narratives is a full-featured e-commerce platform for comic enthusiasts, 
 - Update comic inventory and details
 - View sales analytics and reports
 
-![Project Banner](/)
+![Admin Page](/app-preview/admin-page.png)
+
+## Team 
+| Name | Role                              |
+|------|----------------------------------------------|
+| Letlhogonolo Magano |Frontend, Backend|
+| Thato Mooketsi |Project Management, Database & Data Visualisation| 
+| Abigail Kgosiemang |UI/UX Designer|
+| Mekayla Moyikwa | Database & Data Visualisation, Backend|
+| Lebogang Masiwana |UI/UX Designer, Frontend|
+
+![About Us Page ](/app-preview/about)
 
 ## Tech Stack
-
-**Frontend:**
-- HTML5, CSS3
-- Bootstrap 5
-- JavaScript
-
-**Backend:**
-- Python 3
-- Flask
-- SQLite (via Flask-SQLAlchemy)
-
-**Data Visualization:**
-- Matplotlib
-
-
+|**Frontend:**| **Backend:** | **Data Visualisation:** |
+|------------------|------------------------|---------------------------|
+|- HTML5, CSS3| - Python 3 |- Matplotlib|
+|- Bootstrap 5| - Flask ||
+|- JavaScript| - SQLite (via Flask-SQLAlchemy)||
